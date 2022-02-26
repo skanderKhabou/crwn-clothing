@@ -7,3 +7,8 @@ a {
   text-decoration: none;
   color: black;
 }
+
+* {
+  box-sizing: border-box;
+  /* for every element box sizing border box will align all the element  the padding the margin and the border don t affect element size anymore  */
+}
