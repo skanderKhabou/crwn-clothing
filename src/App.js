@@ -5,7 +5,7 @@ import { connect } from "react-redux";
 
 import Header from "./components/header/header.component";
 import { auth, createUserProfileDocument } from "./firebase/firebase.utils";
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import HomePage from "./pages/homepage/homepage.component";
 import ShopPage from "./pages/shop/shop-page.component";
 import SignInAndSignUpPage from "./pages/sign-in-and-sign-up/sign-in-and-sign-up.component";
@@ -85,7 +85,7 @@ class App extends React.Component {
           });
         });
       }
-      setCurrentUser({ currentUser: userAuth });
+      setCurrentUser(userAuth);
     });
   }
 
@@ -101,8 +101,18 @@ class App extends React.Component {
         <Header />
         <Switch>
           <Route exact path="/" component={HomePage} />
-          <Route exact path="/shop" component={ShopPage} />
-          <Route exact path="/signin" component={SignInAndSignUpPage} />
+          <Route path="/shop" component={ShopPage} />
+          <Route
+            exact
+            path="/signin"
+            render={() =>
+              this.props.currentUser ? (
+                <Redirect to="/" />
+              ) : (
+                <SignInAndSignUpPage />
+              )
+            }
+          />
         </Switch>
       </div>
       // <Route exact path="/shop/hats" component={HatsPage} />
@@ -114,8 +124,16 @@ class App extends React.Component {
   }
 }
 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser,
+});
+
+// the reducer is the acutual value of the state in the store  and reucer functions are the ones that modify the state for that specific reducer
+
 const mappDispatchToProps = (dispatch) => ({
   setCurrentUser: (user) => dispatch(setCurrentUser(user)),
 });
 
-export default connect(null, mappDispatchToProps)(App);
+// this is to add the Reducer action to the component so you can call that function and update de database (reducer)
+
+export default connect(mapStateToProps, mappDispatchToProps)(App);
