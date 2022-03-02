@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import "./header.styles.scss";
 
 import { auth } from "../../firebase/firebase.utils";
@@ -32,4 +33,8 @@ const Header = ({ currentUser }) => (
   </div>
 );
 
-export default Header;
+const mapStateToProps = (state) => ({
+  currentUser: state.user.currentUser,
+});
+// this will give us the current value of current user that we initiate it into the store so no user is null as we set it by default
+export default connect(mapStateToProps)(Header);
