@@ -11,3 +11,8 @@ export const addItem = (item) => ({
 });
 
 // this will be imported in the collection item
+
+export const clearItemFromCart = (item) => ({
+  type: CartActionTypes.CLEAR_ITEM_FROM_CART,
+  payload: item,
+});

@@ -1,16 +1,15 @@
 import React from "react";
+import { connect } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import { withRouter } from "react-router-dom";
+
 import CustomButton from "../custom-button/custom-button.component";
 import CartItem from "../cart-item/cart-item.component";
-import { toggleCartHidden } from "../../redux/cart/cart.action";
-import { withRouter } from "react-router-dom";
 
 // ou can get access to the history object’s properties and the closest <Route>'s match via the withRouter higher-order component. withRouter will pass updated match, location, and history props to the wrapped component whenever it renders.
 
-import { createStructuredSelector } from "reselect";
-
 import { selectCartItems } from "../../redux/cart/cart.selectors";
-
-import { connect } from "react-redux";
+import { toggleCartHidden } from "../../redux/cart/cart.action.js";
 
 import "./cart-dropdown.styles.scss";
 
@@ -29,7 +28,6 @@ const CartDropdown = ({ cartItems, history, dispatch }) => (
     <CustomButton
       onClick={() => {
         history.push("/checkout");
-
         dispatch(toggleCartHidden());
       }}
     >
