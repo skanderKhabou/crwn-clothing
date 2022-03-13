@@ -1,5 +1,6 @@
 .collection-item {
-  width: 22%;
+  width: 22vw;
+  // i want this component to be 22 % of the width of the actual window to be adapted to others screens , percent is only 22% of the containing div width if is 100 then it will be 22 % ..
   display: flex;
   flex-direction: column;
   height: 350px;
